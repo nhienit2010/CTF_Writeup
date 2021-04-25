@@ -114,7 +114,7 @@ else
 </html>
 <?php ob_end_flush(); ?>
 ```  
-Nhìn sơ qua source code, ta thấy có 2 chức năng ẩn trên web là  
+Nhìn sơ qua source code, ta thấy có 2 section ẩn là  
   
 ```php  
 if($whoareyou==="alien.somewhere.meepwn.team")
@@ -147,7 +147,7 @@ EOF;
 
 }
 ```
-và một chức năng nữa  
+và một section nữa  
 ```php  
 elseif($whoareyou==="human.ludibrium.meepwn.team")
 {
@@ -181,7 +181,7 @@ EOF;
 
 }
 ```  
-Cả 2 chức năng đó đều lead ta tới một file php khác, cụ thể là `omega_sector.php` và `alien_sector.php` nhưng vì không được cung cấp source nên cũng không biết là chúng dùng để 
+Cả 2 section đó đều lead ta tới một file php khác, cụ thể là `omega_sector.php` và `alien_sector.php` nhưng vì không được cung cấp source nên cũng không biết là chúng dùng để 
 làm gì, nhưng không có gì là thừa cả :v, có khi nó được thêm vào để giúp ta lấy flag thì sao :))). 
   
 ## `Analysis`  
