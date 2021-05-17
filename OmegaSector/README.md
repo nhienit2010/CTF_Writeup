@@ -1,4 +1,4 @@
-# OmegaSector  
+# OmegaSector - Meepwn CTF Quals 2018  
   
 ## `Overview`  
   
