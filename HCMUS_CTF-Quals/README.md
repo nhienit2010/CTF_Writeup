@@ -3,10 +3,10 @@
   
 | Challenge name    | Points  | Solvers   |  
 | :---------  |    :---: |   ---: |
-| [Nothingness](#nothingness) | 32 | 27 |
-| [EasyLogin](#easylogin) | 71 | 24 |
-| [SimpleCalculator](#simplecalculator) | 94 | 12|
-| [GITchee-gitchee-goo](#gitchee-gitchee-goo) | 193 | 9 |  
+| [Nothingness](#1.nothingness) | 32 | 27 |
+| [EasyLogin](#2.easylogin) | 71 | 24 |
+| [SimpleCalculator](#3.simplecalculator) | 94 | 12|
+| [GITchee-gitchee-goo](#4.gitchee-gitchee-goo) | 193 | 9 |  
   
 ## `1. Nothingness`  
     
