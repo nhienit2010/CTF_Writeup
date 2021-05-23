@@ -267,5 +267,5 @@ Và ta có flag XD
   
 > Flag: `HCMUS-CTF{mOt1vaT3d_by_0ld_m3Mory}` 
   
-  
-
+## Conclusion  
+Trên đây là solution của team mình và cũng như quá trình mà mình đã giải được các challenge trong thời gian diễn ra cuộc thi, song song đó cũng có những kiến thức mới mà mình học được trong quá trình giải và mình đã diễn đạt nó theo cách mà bản thân mình hiểu được, do đó việc xảy ra sai sót là điều không thể tránh khỏi nên nếu có sai sót mong các bạn góp ý cho mình để trong các bài write-up sau mình sẽ diễn đạt tốt hơn, cũng như tìm hiểu kỹ hơn về những gì mình sắp trình bày cho các bạn. Happy hacking!! XD
