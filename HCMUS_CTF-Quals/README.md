@@ -32,7 +32,7 @@ Và `flag` nằm ở thư mục root
 Đọc flag nà!!  
 ![](./imgs/nothingness/7.png)  
   
-> Flag: HCMUS-CTF{404_teMpl4t3_1njEctIon}    
+> Flag: `HCMUS-CTF{404_teMpl4t3_1njEctIon}`    
    
 ## `EasyLogin`   
   
