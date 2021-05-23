@@ -8,7 +8,7 @@
 | [SimpleCalculator](#3.simplecalculator) | 94 | 12|
 | [GITchee-gitchee-goo](#4.gitchee-gitchee-goo) | 193 | 9 |  
   
-## `1. Nothingness`  
+## `Nothingness`  
     
 ![](./imgs/nothingness/1.png)      
 Trang web khi vào sẽ hiển thị ra như trên, nhưng có vẻ là `URL path` được nhắc đến ở đây nên ta thử nhập một `path` bất kỳ nào đấy lên URL để xem như thế nào  
@@ -34,7 +34,7 @@ Và `flag` nằm ở thư mục root
   
 > Flag: HCMUS-CTF{404_teMpl4t3_1njEctIon}    
    
-## `2. EasyLogin`   
+## `EasyLogin`   
   
 Bài cho ta một form login, và thử ngay thì biết được dính lỗi `SQL injection` và đang sử dụng `SQLite3`. Nhưng thử bypass login với `admin` thì được kết quả như này =))
   
@@ -76,7 +76,7 @@ while True:
 			exit()
 ```  
 > Flag: `HCMUS-CTF{easY_sql_1nj3ctIon}`
-## `3. SimpleCalculator`   
+## `SimpleCalculator`   
     
 Web có chức năng cho ta nhập vào một biểu thức gì gì đó, sau đó tính toán các kiểu rồi trả về result thông qua biến query `equation`. Ta thử nhập vào một mảng xem như thế nào 
   
@@ -97,7 +97,9 @@ Giải thích sơ qua về payload:
 ![](./imgs/simplecalc/3.png)  
   
 > Flag: `HCMUS-CTF{d4ngErous_eVal}`  
-## `4. GITchee-gitchee-goo`   
+
+
+## `GITchee-gitchee-goo`   
   
 Ở đây, ta có thể dễ dàng fuzz được `LFI` tại ô input dưới đây => từ chổ này, ta có thể đọc bất kỳ file nào trên hệ thống (nếu được phép)  
   
