@@ -47,6 +47,7 @@ Sau đấy viết lại script để exploit thì được tên bảng
   
 Script exploit:
 ```python3
+#!/usr/bin/env python3
 import requests
 import string
 
