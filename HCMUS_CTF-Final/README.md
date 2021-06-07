@@ -164,7 +164,7 @@ Sau khi có `PIN code` thì nhập vào và chiếm được console rồi đọ
 ## `CuteShopV2`   
   
 Source code:  
-```nodejs
+```js
 const express = require("express");
 const session = require('express-session')
 const config = require("./config");
