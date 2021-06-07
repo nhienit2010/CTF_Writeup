@@ -426,7 +426,7 @@ Payload: ``` /cgi-bin/api.pl?search=(?{print+`cat+/FLAAAG_HERE_NO_ONNE_CAN_GUESS
 ## `Pokegen` 
   
 Source code:  
-```nodejs
+```js
 // server.js
 const express = require("express");
 const session = require('express-session');
