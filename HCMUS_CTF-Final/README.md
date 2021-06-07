@@ -388,7 +388,7 @@ Nhưng may mắn là có một bạn nói với mình là pass của admin đơn
   
 > Flag: `HCMUS-CTF{rac3-t0-The-Fl444g}`  
  
-## `regex`   
+## `REGULAR lang EXporter`   
   
 Đây là một challenge được code bằng `perl` thực thi qua `CGI-bin`, chức năng là lấy regex từ user qua param `?search` và file cần đọc qua param `?language` sau đó trả về nội dung trong file đấy khớp với regex là xong.  
   
