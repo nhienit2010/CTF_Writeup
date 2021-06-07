@@ -585,3 +585,7 @@ Sau khi login thành công, sẽ redirect sang route `/` và template được r
 ![](./rce.png)  
   
 Tiếc là, team mình đã không kịp solve được challenge này nên khá là hối tiếc :(((
+  
+    
+# Conclusion  
+Cuối cùng, chúc mừng đội Giải nhất đã chiến thắng hoàn toàn xứng đáng và mình chân thành cảm ơn BTC của Đại học Khoa học Tự Nhiên đã tạo ra sân chơi cực kỳ bổ ích đến cho chúng mình, qua cuộc thi này mình cảm thấy học được nhiều thứ mới và cũng như đánh giá lại được năng lực của bản thân để cố gắng phát triển hơn nữa. *** Happy hacking XD ***
