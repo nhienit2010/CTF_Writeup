@@ -544,7 +544,7 @@ MongoClient.connect("mongodb://localhost:27017/pokegen", (err, client) => {
 ```  
 Với những dạng như này, mình hay xem `package.json` trước tiên, vì rất có thể tác giả sử dụng version của những `lib` hay `module` cũ và tất nhiên nếu may mắn, ta có thể tìm được chi tiết về cách khai thác của bug đó. Trong case này, version của `pug` ở đây là `pug==3.0.0`, ta có thể dễ tìm thấy được issue của nó tại đây: [https://github.com/pugjs/pug/issues/3312](https://github.com/pugjs/pug/issues/3312)  
   
-Bug này nhắm vào `pretty options` của `pug compiler`, nghĩa là nếu ta control được biến `pretty` hay `options.pretty` thì có thể `RCE` được, bằng cách khai thác chổ  
+Bug này nhắm vào `pretty options` của `pug compiler`, nghĩa là nếu ta control được biến `pretty` hay `options.pretty` thì có thể `RCE` được (còn tại sao lại RCE được thì các bạn đọc thêm cái issue trên :D), bằng cách khai thác chổ  
 ```nodejs
 ...
 app.route("/register")
