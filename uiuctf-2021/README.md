@@ -6,6 +6,8 @@ Challenge khá đơn giản vì là warmup, chỉ cần `Ctrl + Shift + I` để
   
 ![img](./imgs/1.png)  
   
+Flag: `uiuctf{welcome_to_wasm_e3c3bdd1}`  
+  
 ### ponydb - 112pts  
   
 [Source code](https://uiuc.tf/files/727b10ed82902f914153fd781e8711dd/handout.tar.gz?token=eyJ1c2VyX2lkIjoxMDcyLCJ0ZWFtX2lkIjoxNTUsImZpbGVfaWQiOjQ4fQ.YQe3Ng.TjZr4KWts3_vs_a2z9WNw7zmqcc)  
