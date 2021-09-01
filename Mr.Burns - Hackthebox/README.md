@@ -33,7 +33,7 @@ session.save_path	      no value	        no value
 - Upload `PHP_SESSION_UPLOAD_PROGRESS` and `malicous php code`
 - Try to include session file stored at `/tmp` and write web-shell  
 - Create a bash file store command get flag  
-- Use `mail()` function to execute base file was created  
+- Use `mail()` function to execute bash file was created  
 
 #### My code exploit  
   
