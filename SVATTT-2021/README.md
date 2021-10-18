@@ -83,7 +83,7 @@ Payload:
 ```  
 Trong đó, `<class dump>` là các file `.class` đã được encode dạng `BCELEncode`. Ý tưởng đọc flag ở `/flag` sau đó encode dưới dạng `hex` sau đó dùng `Burp collaborator client` để lắng nghe DNS lookup và lấy flag.  
   
-```
+```java
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
