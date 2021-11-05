@@ -1,4 +1,4 @@
-# HCMUS_CTF - Quals
+# HCMUS_CTF - Final
 <hr />
   
 ## `GenshinWiki`   
