@@ -1,4 +1,4 @@
-# <center>alert(1) to win</center>
+# <p align="center"> alert(1) to win </p>
   
 ## Warmup
 ```js
