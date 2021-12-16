@@ -138,7 +138,17 @@ Payload: `'#';alert(1);<!--`
 > TODO
 
 ## JSON 3
-> TODO
+```js
+function escape(s) {
+  return s.split('#').map(function(v) {
+      // Only 20% of slashes are end tags; save 1.2% of total
+      // bytes by only escaping those.
+      var json = JSON.stringify(v).replace(/<\//g, '<\\/');
+      return '<script>console.log('+json+')</script>';
+      }).join('');
+}
+```
+Payload: `<!--<script>#)/|alert(1)//-->` thank to `https://github.com/yangfan9702/alert-1-to-win#a015`
 
 ## Skandia 3
 ```js
